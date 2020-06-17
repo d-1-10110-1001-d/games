@@ -1,3 +1,4 @@
-# games
+# Conway's game of life
 
-basic games
+Conway's game of life
+
