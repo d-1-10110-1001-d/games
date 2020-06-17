@@ -46,7 +46,7 @@ class Grid:
 
 class Game:
 
-    pause_time = 0.5
+    pause_time = 1
     canvas_width = 500
     canvas_height = 500
 
@@ -68,14 +68,6 @@ class Game:
                 if self.__grid.grid[row][col].status == "alive":
                     fill_color = "green"
                 self.canvas.create_rectangle(row*Game.canvas_height/Grid.grid_height, col*Game.canvas_width/Grid.grid_width, row*Game.canvas_height/Grid.grid_height + Game.canvas_height/Grid.grid_height, col*Game.canvas_width/Grid.grid_width + Game.canvas_width/Grid.grid_width, fill=fill_color)
-
-        
-
-        # for row in self.__grid.grid:
-        #     for cell in row:
-        #         print(cell, end="")
-                
-        #     print()
 
                 
     def new_cell_status(self, current_status, live_neighbors):
@@ -133,7 +125,7 @@ class Game:
         self.__grid = new_grid
 
     def run_game(self):
-        while self.__cycles < 10:
+        while self.__cycles < 100:
             self.root.update()
             self.display_game()
             time.sleep(Game.pause_time)
