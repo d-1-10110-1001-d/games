@@ -58,19 +58,26 @@ class Game:
         self.canvas.grid(row=0, column=0)
         self.cycle_label = Label(self.root, text="cycles: " + str(self.__cycles), padx=5, pady=5)
         self.cycle_label.grid(row=1, column=0)
-
+        
 
     def update_game(self):
 
-        print("cycles:", self.__cycles)
         self.cycle_label.config(text="cycles: " + str(self.__cycles))
         
         for row in range(0, Grid.grid_height):
             for col in range(0, Grid.grid_width):
+                
+                top_left_x = col*Game.canvas_width/Grid.grid_width
+                top_left_y = row*Game.canvas_height/Grid.grid_height
+                bottom_right_x = top_left_x + Game.canvas_width/Grid.grid_width
+                bottom_right_y = top_left_y + Game.canvas_height/Grid.grid_height
+                
                 fill_color= "white"
+
                 if self.__grid.grid[row][col].status == "alive":
                     fill_color = "green"
-                self.canvas.create_rectangle(row*Game.canvas_height/Grid.grid_height, col*Game.canvas_width/Grid.grid_width, row*Game.canvas_height/Grid.grid_height + Game.canvas_height/Grid.grid_height, col*Game.canvas_width/Grid.grid_width + Game.canvas_width/Grid.grid_width, fill=fill_color)
+
+                self.canvas.create_rectangle(top_left_x, top_left_y, bottom_right_x, bottom_right_y, fill=fill_color)
 
                 
     def new_cell_status(self, current_status, live_neighbors):
@@ -127,6 +134,12 @@ class Game:
 
         self.__grid = new_grid
 
+    def press_cycle(self):
+            self.update_game()
+            self.root.update()
+            self.cycle()
+            self.__cycles += 1
+
     def run_game(self, max_cycles):
         while self.__cycles <= max_cycles:
             self.update_game()
@@ -134,6 +147,11 @@ class Game:
             time.sleep(Game.pause_time)
             self.cycle()
             self.__cycles += 1
+
+        
+
+        self.canvas.bind("<ButtonPress>", self.press_cycle)
+        
         self.root.mainloop()
 
 
