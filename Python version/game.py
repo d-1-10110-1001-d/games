@@ -56,11 +56,14 @@ class Game:
         self.root = Tk()
         self.canvas = Canvas(self.root, width = Game.canvas_width, height = Game.canvas_height)
         self.canvas.grid(row=0, column=0)
+        self.cycle_label = Label(self.root, text="cycles: " + str(self.__cycles), padx=5, pady=5)
+        self.cycle_label.grid(row=1, column=0)
 
 
-    def display_game(self):
+    def update_game(self):
 
         print("cycles:", self.__cycles)
+        self.cycle_label.config(text="cycles: " + str(self.__cycles))
         
         for row in range(0, Grid.grid_height):
             for col in range(0, Grid.grid_width):
@@ -124,16 +127,17 @@ class Game:
 
         self.__grid = new_grid
 
-    def run_game(self):
-        while self.__cycles < 100:
+    def run_game(self, max_cycles):
+        while self.__cycles <= max_cycles:
+            self.update_game()
             self.root.update()
-            self.display_game()
             time.sleep(Game.pause_time)
             self.cycle()
             self.__cycles += 1
+        self.root.mainloop()
 
 
 
 if __name__ == "__main__":
     game = Game()
-    game.run_game()
+    game.run_game(5)
