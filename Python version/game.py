@@ -134,11 +134,7 @@ class Game:
 
         self.__grid = new_grid
 
-    def press_cycle(self):
-            self.update_game()
-            self.root.update()
-            self.cycle()
-            self.__cycles += 1
+    
 
     def run_game(self, max_cycles):
         while self.__cycles <= max_cycles:
@@ -147,10 +143,6 @@ class Game:
             time.sleep(Game.pause_time)
             self.cycle()
             self.__cycles += 1
-
-        
-
-        self.canvas.bind("<ButtonPress>", self.press_cycle)
         
         self.root.mainloop()
 
@@ -158,4 +150,4 @@ class Game:
 
 if __name__ == "__main__":
     game = Game()
-    game.run_game(5)
+    game.run_game(100)
