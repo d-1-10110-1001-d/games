@@ -1,8 +1,6 @@
-
 import random
 import time
-from tkinter import *
-
+from tkinter import Tk, Canvas, Label
 
 class Cell:
     
@@ -46,7 +44,7 @@ class Grid:
 
 class Game:
 
-    pause_time = 1
+    pause_time = 0.6
     canvas_width = 500
     canvas_height = 500
 
@@ -127,14 +125,9 @@ class Game:
         return self.new_cell_status(self.__grid.grid[row][col].status, live_neighbors)
 
     def cycle(self):
-        new_grid = Grid()
         for row in range(0, Grid.grid_height):
             for col in range(0, Grid.grid_width):
-                new_grid.grid[row][col].status = self.get_updated_cell_status(row, col)
-
-        self.__grid = new_grid
-
-    
+                self.__grid.grid[row][col].status = self.get_updated_cell_status(row, col)
 
     def run_game(self, max_cycles):
         while self.__cycles <= max_cycles:
@@ -145,7 +138,6 @@ class Game:
             self.__cycles += 1
         
         self.root.mainloop()
-
 
 
 if __name__ == "__main__":
