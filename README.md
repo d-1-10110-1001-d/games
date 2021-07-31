@@ -7,5 +7,5 @@ This is my implementation of [Conway's Game of Life](https://en.wikipedia.org/wi
 ![gameoflife](https://dxaviud.github.io/images/gameoflife.gif)
 
 ## Execute
-Make sure Python 3 is installed. Clone this repository. In a terminal, navigate to the directory containing game.py and run `python game.py` to execute.
+`python game.py`
 
